@@ -1,4 +1,4 @@
-<clr-vertical-nav>
+<clr-vertical-nav *ngIf="authService.isAuthenticated()">
   <a clrVerticalNavLink routerLink="/home" routerLinkActive="active">
     <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
     Dashboard

@@ -9,7 +9,7 @@
     <input id="app_search_input" type="text" placeholder="Search..." autocapitalize="off" autocomplete="off">
   </label>
 </form>
-<div class="header-actions" *ngIf="loggedIn">
+<div class="header-actions" *ngIf="authService.isAuthenticated()">
   <clr-dropdown>
     <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
       {{ user }}

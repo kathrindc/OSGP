@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'osgp-core-header',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
   host: { 'class': 'header header-6' }
 })
 export class HeaderComponent {
-  public loggedIn: boolean = true;
   public user: string = 'Admin McAdminface';
+
+  constructor(
+    public authService: AuthService,
+  ) {
+  }
 }

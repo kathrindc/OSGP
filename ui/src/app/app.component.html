@@ -1,4 +1,4 @@
 <div class="main-container">
-  <osgp-core-header></osgp-core-header>
+  <osgp-core-header *ngIf="authService.isAuthenticated()"></osgp-core-header>
   <osgp-core-navigation></osgp-core-navigation>
 </div>

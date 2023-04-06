@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'osgp-core-navigation',
@@ -8,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class NavigationComponent {
 
+  constructor(
+    public authService: AuthService,
+  ) {
+  }
 }
