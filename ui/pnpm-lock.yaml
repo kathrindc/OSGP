@@ -13,6 +13,7 @@ specifiers:
   '@angular/platform-browser': ^15.1.0
   '@angular/platform-browser-dynamic': ^15.1.0
   '@angular/router': ^15.1.0
+  '@auth0/angular-jwt': ^5.1.2
   '@cds/core': ^6.3.2
   '@clr/angular': ^15.1.0
   '@clr/ui': ^15.1.0
@@ -38,6 +39,7 @@ dependencies:
   '@angular/platform-browser': 15.2.5_whitwv576nipstqe3pscp2dg6m
   '@angular/platform-browser-dynamic': 15.2.5_q7pdso3tfnujpmliompw7qvcae
   '@angular/router': 15.2.5_fei2hpjube2jyptjjr23apcui4
+  '@auth0/angular-jwt': 5.1.2_@angular+common@15.2.5
   '@cds/core': 6.3.2
   '@clr/angular': 15.1.0_swqb4gzul6ge44bmlyu6bzvchu
   '@clr/ui': 15.1.0_@clr+angular@15.1.0
@@ -439,6 +441,15 @@ packages:
   /@assemblyscript/loader/0.10.1:
     resolution: {integrity: sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==}
     dev: true
+
+  /@auth0/angular-jwt/5.1.2_@angular+common@15.2.5:
+    resolution: {integrity: sha512-8ulz24cPpEkZb9/AdAaWfYIkomQDbZqvB9LproF/48Klnr30EJx09AYF9sbKTN4qLSgIZSlCb/Y7XQJZ51vSzA==}
+    peerDependencies:
+      '@angular/common': '>=12.0.0'
+    dependencies:
+      '@angular/common': 15.2.5_l7ldxvm6cyairraobr6ufbyy3m
+      tslib: 2.5.0
+    dev: false
 
   /@babel/code-frame/7.21.4:
     resolution: {integrity: sha512-LYvhNKfwWSPpocw8GI7gpK2nq3HSDuEPC/uSYaALSJu9xjsalaaYFOq0Pwt5KmVqwEbZlDu81aLXwBOmD/Fv9g==}
