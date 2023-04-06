@@ -1,0 +1,23 @@
+<div class="branding">
+  <a routerLink="/" class="nav-link">
+    <cds-icon shape="vm-bug"></cds-icon>
+    <span class="title">OSGP</span>
+  </a>
+</div>
+<form class="search">
+  <label for="app_search_input">
+    <input id="app_search_input" type="text" placeholder="Search..." autocapitalize="off" autocomplete="off">
+  </label>
+</form>
+<div class="header-actions" *ngIf="loggedIn">
+  <clr-dropdown>
+    <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
+      {{ user }}
+      <cds-icon shape="angle" direction="down"></cds-icon>
+    </button>
+    <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+      <a routerLink="/preferences" clrDropdownItem>Preferences</a>
+      <a routerLink="/logout" clrDropdownItem>Log out</a>
+    </clr-dropdown-menu>
+  </clr-dropdown>
+</div>

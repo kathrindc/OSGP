@@ -1,0 +1,29 @@
+<clr-vertical-nav>
+  <a clrVerticalNavLink routerLink="/home" routerLinkActive="active">
+    <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
+    Dashboard
+  </a>
+  <a clrVerticalNavLink routerLink="/servers" routerLinkActive="active">
+    <cds-icon clrVerticalNavIcon shape="rack-server"></cds-icon>
+    Servers
+  </a>
+  <a clrVerticalNavLink routerLink="/events" routerLinkActive="active">
+    <cds-icon clrVerticalNavIcon shape="list"></cds-icon>
+    Events
+  </a>
+  <a clrVerticalNavLink routerLink="/account" routerLinkActive="active">
+    <cds-icon clrVerticalNavIcon shape="user"></cds-icon>
+    Account
+  </a>
+  <a clrVerticalNavLink routerLink="/security" routerLinkActive="active">
+    <cds-icon clrVerticalNavIcon shape="lock"></cds-icon>
+    Security
+  </a>
+  <a clrVerticalNavLink routerLink="/billing" routerLinkActive="active">
+    <cds-icon clrVerticalNavIcon shape="wallet"></cds-icon>
+    Billing
+  </a>
+</clr-vertical-nav>
+<div class="content-area">
+    <router-outlet></router-outlet>
+</div>
