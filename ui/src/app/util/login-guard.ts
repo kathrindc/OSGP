@@ -6,8 +6,10 @@ export const loginGuard = () => {
   const router = inject(Router);
   const service = inject(AuthService);
 
-  if (!service) {
-    return router.navigate(['/login']);
+  if (!service?.isAuthenticated?.()) {
+    router.navigate(['/login']);
+
+    return false;
   }
 
   return true;
