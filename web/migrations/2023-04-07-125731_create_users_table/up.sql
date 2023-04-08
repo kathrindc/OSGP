@@ -1,0 +1,8 @@
+CREATE TABLE users (
+    "id" SERIAL PRIMARY KEY,
+    "role" VARCHAR NOT NULL DEFAULT 'customer',
+    "email" VARCHAR NOT NULL,
+    "password" VARCHAR NOT NULL,
+    "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
