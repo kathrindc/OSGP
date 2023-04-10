@@ -7,6 +7,7 @@ pub enum ResponseBody {
     Message(String),
     User(User),
     Users(Vec<User>),
+    Token(String),
     None,
 }
 

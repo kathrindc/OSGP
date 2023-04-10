@@ -5,7 +5,7 @@ mod respond;
 mod schema;
 mod security;
 
-use handlers::user_handler;
+use handlers::{logon_handler, user_handler};
 use rocket::{get, launch, routes};
 
 #[get("/")]
@@ -25,6 +25,8 @@ fn rocket() -> _ {
             user_handler::update_user_handler,
             user_handler::change_user_password_handler,
             user_handler::delete_user_handler,
+            logon_handler::get_logon_handler,
+            logon_handler::start_logon_handler,
         ],
     )
 }
