@@ -4,6 +4,7 @@ import { DashboardPageComponent } from './pages/dashboard/dashboard.component';
 import { LoginPageComponent } from './pages/login/login.component';
 import { NotFoundPageComponent } from './pages/notfound/notfound.component';
 import { loginGuard } from './util/login-guard';
+import { LogoutPageComponent } from './pages/logout/logout.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
     path: 'login',
     pathMatch: 'full',
     component: LoginPageComponent,
+  },
+  {
+    path: 'logout',
+    pathMatch: 'full',
+    component: LogoutPageComponent,
   },
   {
     path: '**',

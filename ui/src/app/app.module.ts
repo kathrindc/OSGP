@@ -14,6 +14,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
 import { LoginPageComponent } from './pages/login/login.component';
 import { FormsModule } from '@angular/forms';
+import { LogoutPageComponent } from './pages/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     DashboardPageComponent,
     NotFoundPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    LogoutPageComponent
   ],
   imports: [
     BrowserModule,
