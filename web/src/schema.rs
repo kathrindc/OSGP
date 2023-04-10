@@ -4,6 +4,7 @@ diesel::table! {
     logon_sessions (id) {
         id -> Uuid,
         user -> Int4,
+        expires_at -> Timestamptz,
     }
 }
 

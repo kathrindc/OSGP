@@ -1,14 +1,14 @@
 use crate::{database::establish_connection, schema::logon_sessions};
+use chrono::{DateTime, Duration, Utc};
 use diesel::prelude::*;
 use serde::Serialize;
 use uuid::Uuid;
 
-static TWENTY_MINUTES: i64 = 60 * 20;
-
-#[derive(Debug, Identifiable, Insertable, Queryable, Serialize)]
+#[derive(Debug, Identifiable, Insertable, Queryable, Serialize, AsChangeset)]
 pub struct LogonSession {
     pub id: Uuid,
     pub user: i32,
+    pub expires_at: DateTime<Utc>,
 }
 
 impl LogonSession {
@@ -16,6 +16,7 @@ impl LogonSession {
         Self {
             id: Uuid::new_v4(),
             user,
+            expires_at: Utc::now() + Duration::minutes(20),
         }
     }
 
@@ -40,10 +41,14 @@ impl LogonSession {
     }
 
     pub fn verify(&self) -> bool {
-        todo!();
+        Utc::now() < self.expires_at
     }
 
-    pub fn refresh(&self) {
-        todo!();
+    pub fn refresh(&mut self) {
+        let connection = &mut establish_connection();
+
+        self.expires_at = Utc::now() + Duration::minutes(20);
+        self.save_changes::<LogonSession>(connection)
+            .expect("Database error while refreshing session");
     }
 }

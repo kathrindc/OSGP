@@ -49,7 +49,7 @@ fn get_token_data(token: String) -> Result<TokenData<TokenContent>, SecurityErro
 }
 
 fn verify_token_data(token: &TokenData<TokenContent>) -> Option<LogonSession> {
-    if let Some(session) = LogonSession::load_by_id(token.claims.session) {
+    if let Some(mut session) = LogonSession::load_by_id(token.claims.session) {
         if session.verify() {
             session.refresh();
 
