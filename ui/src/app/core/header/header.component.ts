@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import User from 'src/app/types/user';
 
 @Component({
   selector: 'osgp-core-header',
@@ -7,11 +8,15 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.less'],
   host: { 'class': 'header header-6' }
 })
-export class HeaderComponent {
-  public user: string = 'Admin McAdminface';
+export class HeaderComponent implements OnInit {
+  public user: User | null = null;
 
   constructor(
     public authService: AuthService,
   ) {
+  }
+
+  ngOnInit(): void {
+    AuthService.User.subscribe(user => { this.user = user });
   }
 }

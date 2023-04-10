@@ -12,7 +12,7 @@
 <div class="header-actions" *ngIf="authService.isAuthenticated()">
   <clr-dropdown>
     <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
-      {{ user }}
+      {{ user?.email }}
       <cds-icon shape="angle" direction="down"></cds-icon>
     </button>
     <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
