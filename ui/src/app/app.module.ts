@@ -12,6 +12,8 @@ import { NotFoundPageComponent } from './pages/notfound/notfound.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
+import { LoginPageComponent } from './pages/login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,20 +21,24 @@ import { AuthService } from './services/auth.service';
     NavigationComponent,
     HeaderComponent,
     DashboardPageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    ClarityModule,
 
+    AppRoutingModule,
+    FormsModule,
+
+    HttpClientModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => AuthService.CurrentToken,
       }
-    })
+    }),
+
+    ClarityModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

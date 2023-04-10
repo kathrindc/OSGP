@@ -1,0 +1,34 @@
+<form class="login" (ngSubmit)="submit">
+  <section class="title">
+    <h3 class="welcome">Welcome to</h3>
+    OSGP
+    <h5 class="hint">Use your customer credentials to sign in</h5>
+  </section>
+  <div class="login-group">
+    <clr-select-container>
+      <label>User Role</label>
+      <select clrSelect name="mode" [(ngModel)]="form.role">
+        <option value="customer">Customer</option>
+        <option value="admin">Administrator</option>
+      </select>
+    </clr-select-container>
+    <clr-input-container>
+      <label class="clr-sr-only">E-Mail</label>
+      <input clrInput type="email" autocomplete="email" name="email" placeholder="E-Mail Address" [(ngModel)]="form.email">
+    </clr-input-container>
+    <clr-password-container>
+      <label class="clr-sr-only">Password</label>
+      <input clrPassword type="password" autocomplete="password" name="password" placeholder="Password" [(ngModel)]="form.password">
+    </clr-password-container>
+    <clr-checkbox-wrapper>
+      <label>Remember me</label>
+      <input clrCheckbox type="checkbox" name="remember" [(ngModel)]="form.remember">
+    </clr-checkbox-wrapper>
+    <div class="error active" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="this.submit()">
+      Log in
+    </button>
+  </div>
+</form>
