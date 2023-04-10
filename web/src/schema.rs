@@ -14,6 +14,7 @@ diesel::table! {
         id -> Uuid,
         user -> Int4,
         expires_at -> Timestamptz,
+        address -> Varchar,
     }
 }
 
