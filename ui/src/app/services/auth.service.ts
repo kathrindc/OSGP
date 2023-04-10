@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { firstValueFrom, lastValueFrom, map, Observable, pluck } from 'rxjs';
+import { firstValueFrom, lastValueFrom, map, Subject } from 'rxjs';
 import { ApiHost } from '../api-host';
+import ApiResponse from '../types/response';
+import User from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +13,26 @@ import { ApiHost } from '../api-host';
 export class AuthService {
 
   private static AuthKeyName = window.btoa('osgp-akey');
+  private static _user = new Subject<User | null>();
 
   constructor(
     public jwtHelper: JwtHelperService,
     public httpClient: HttpClient,
     public router: Router,
   ) {
+    if (this.isAuthenticated()) {
+      this.loadInfo(AuthService.CurrentToken!);
+    } else {
+      AuthService._user.next(null);
+    }
   }
 
   static get CurrentToken() {
     return localStorage.getItem(AuthService.AuthKeyName);
+  }
+
+  static get User() {
+    return AuthService._user;
   }
 
   public async login(
@@ -34,17 +46,20 @@ export class AuthService {
     );
     const { ok, body } = (
       await lastValueFrom(observable)
-    ) as { ok: boolean, body: string };
+    ) as ApiResponse<string>;
 
     if (!ok) {
       throw new Error(body);
     }
 
     localStorage.setItem(AuthService.AuthKeyName, body);
+
+    await this.loadInfo(body as string);
   }
 
   public logout() {
     localStorage.removeItem(AuthService.AuthKeyName);
+    AuthService._user.next(null);
 
     this.router.navigate(['/logon']);
   }
@@ -53,17 +68,19 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(AuthService.CurrentToken);
   }
 
-  public getRole(): Observable<string> {
-    const headers: HttpHeaders = new HttpHeaders();
-
-    headers.append('Accept', 'application/json');
-    headers.append('Authorization', `Bearer ${AuthService.CurrentToken}`);
-
+  private async loadInfo(token: string) {
     const observable = this.httpClient.get(
       `${ApiHost}/api/v1/logon`,
-      { headers }
+      { headers: { 'Authorization': `Bearer ${token}` } }
     );
+    const { ok, body } = (
+      await lastValueFrom(observable)
+    ) as ApiResponse<User>;
 
-    return observable.pipe(map((x: any) => x.role));
+    if (!ok) {
+      throw new Error(body as string);
+    }
+
+    AuthService._user.next(body as User);
   }
 }
