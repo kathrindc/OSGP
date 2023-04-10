@@ -24,6 +24,6 @@
     Billing
   </a>
 </clr-vertical-nav>
-<div class="content-area">
-    <router-outlet></router-outlet>
+<div [class]="fullView ? '' : 'content-area'" [style]="fullView ? 'width: 100%;' : ''">
+  <router-outlet></router-outlet>
 </div>

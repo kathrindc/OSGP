@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,8 +10,23 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavigationComponent {
 
+  public fullView = false;
+  private fullViewUrls = [
+    '/login',
+  ];
+
   constructor(
     public authService: AuthService,
+    private router: Router,
   ) {
+    this.router.events.subscribe((_event) => {
+      this.update();
+    });
+
+    this.update();
+  }
+
+  update() {
+    this.fullView = this.fullViewUrls.includes(this.router.url)
   }
 }
