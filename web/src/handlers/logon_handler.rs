@@ -7,7 +7,7 @@ use rocket::{get, post, serde::json::Json};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
-struct LogonData {
+pub struct LogonData {
     pub email: String,
     pub password: String,
 }
