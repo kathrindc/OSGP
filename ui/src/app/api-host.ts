@@ -1,5 +1,6 @@
 import { isDevMode } from '@angular/core';
 
-const ApiHost = isDevMode() ? 'http://localhost:8000' : window.origin;
+const ApiDomain = isDevMode() ? 'localhost:8000' : location.host;
+const ApiHost = `${isDevMode() ? 'http' : 'https'}://${ApiDomain}`;
 
-export { ApiHost };
+export { ApiHost, ApiDomain };

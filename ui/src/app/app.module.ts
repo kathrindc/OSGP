@@ -15,6 +15,7 @@ import { AuthService } from './services/auth.service';
 import { LoginPageComponent } from './pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { LogoutPageComponent } from './pages/logout/logout.component';
+import { ApiDomain } from './api-host';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LogoutPageComponent } from './pages/logout/logout.component';
     HttpClientModule,
     JwtModule.forRoot({
       config: {
+        allowedDomains: [ApiDomain],
         tokenGetter: () => AuthService.CurrentToken,
       }
     }),
