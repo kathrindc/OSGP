@@ -24,31 +24,29 @@ export class AuthService {
   }
 
   public async login(
-    mode: string,
+    role: string,
     email: string,
     password: string,
-  ): Promise<boolean> {
+  ): Promise<void> {
     const observable = this.httpClient.post(
-      `${ApiHost}/api/v1/login`,
-      { mode, email, password }
+      `${ApiHost}/api/v1/logon`,
+      { role, email, password }
     );
-    const { token } = (
+    const { ok, body } = (
       await lastValueFrom(observable)
-    ) as { token: string };
+    ) as { ok: boolean, body: string };
 
-    if (token) {
-      localStorage.setItem(AuthService.AuthKeyName, token);
-
-      return true;
+    if (!ok) {
+      throw new Error(body);
     }
 
-    return false;
+    localStorage.setItem(AuthService.AuthKeyName, body);
   }
 
   public logout() {
     localStorage.removeItem(AuthService.AuthKeyName);
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['/logon']);
   }
 
   public isAuthenticated(): boolean {
@@ -62,7 +60,7 @@ export class AuthService {
     headers.append('Authorization', `Bearer ${AuthService.CurrentToken}`);
 
     const observable = this.httpClient.get(
-      `${ApiHost}/api/v1/my/account`,
+      `${ApiHost}/api/v1/logon`,
       { headers }
     );
 
