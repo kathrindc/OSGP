@@ -52,7 +52,7 @@ pub fn start_logon_handler(data: Json<LogonData>) -> String {
         }
 
         None => Response {
-            ok: true,
+            ok: false,
             body: ResponseBody::Message("No such user with the provided credentials.".to_string()),
         },
     };
