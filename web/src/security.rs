@@ -23,7 +23,7 @@ struct TokenContent {
 }
 
 pub enum Security {
-    AppToken(TokenContent),
+    AppToken(LogonSession),
     ApiKey(String),
 }
 
@@ -48,19 +48,16 @@ fn get_token_data(token: String) -> Result<TokenData<TokenContent>, SecurityErro
     }
 }
 
-fn verify_token_data(token: &TokenData<TokenContent>) -> bool {
-    match LogonSession::load_by_id(token.claims.session) {
-        Some(session) => {
-            if session.verify() {
-                session.refresh();
+fn verify_token_data(token: &TokenData<TokenContent>) -> Option<LogonSession> {
+    if let Some(session) = LogonSession::load_by_id(token.claims.session) {
+        if session.verify() {
+            session.refresh();
 
-                true
-            } else {
-                false
-            }
+            return Some(session);
         }
-        None => false,
     }
+
+    None
 }
 
 #[rocket::async_trait]
@@ -112,8 +109,8 @@ impl Security {
                 let token_string = auth_string[6..auth_string.len()].trim();
 
                 if let Ok(token_data) = get_token_data(token_string.to_string()) {
-                    if verify_token_data(&token_data) {
-                        return Some(Security::AppToken(token_data.claims));
+                    if let Some(session) = verify_token_data(&token_data) {
+                        return Some(Security::AppToken(session));
                     }
                 }
             }

@@ -39,11 +39,11 @@ impl LogonSession {
             .expect("Database error while beginning session")
     }
 
-    pub fn verify(self) -> bool {
+    pub fn verify(&self) -> bool {
         todo!();
     }
 
-    pub fn refresh(self) {
+    pub fn refresh(&self) {
         todo!();
     }
 }
