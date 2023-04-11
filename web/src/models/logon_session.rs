@@ -9,19 +9,19 @@ use super::LogonHistory;
 #[derive(Debug, Identifiable, Insertable, Queryable, Serialize, AsChangeset)]
 pub struct LogonSession {
     pub id: Uuid,
-    pub user: i32,
+    pub user_id: i32,
     pub expires_at: DateTime<Utc>,
     pub address: String,
     pub started_at: DateTime<Utc>,
 }
 
 impl LogonSession {
-    fn new(user: i32, address: String) -> Self {
+    fn new(user_id: i32, address: String) -> Self {
         Self {
             id: Uuid::new_v4(),
             started_at: Utc::now(),
             expires_at: Utc::now() + Duration::minutes(20),
-            user,
+            user_id,
             address,
         }
     }

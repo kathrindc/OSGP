@@ -10,7 +10,7 @@ use super::LogonSession;
 #[diesel(table_name = logon_history)]
 pub struct LogonHistory {
     pub id: Uuid,
-    pub user: i32,
+    pub user_id: i32,
     pub address: String,
     pub started_at: DateTime<Utc>,
 }
@@ -19,7 +19,7 @@ impl LogonHistory {
     fn new(session: &LogonSession) -> Self {
         Self {
             id: session.id,
-            user: session.user,
+            user_id: session.user_id,
             address: session.address.clone(),
             started_at: session.started_at,
         }
@@ -39,7 +39,7 @@ impl LogonHistory {
         let connection = &mut establish_connection();
 
         logon_history::table
-            .filter(logon_history::dsl::user.eq(user))
+            .filter(logon_history::dsl::user_id.eq(user))
             .get_results::<LogonHistory>(connection)
             .expect("Database error while loading logon history")
     }

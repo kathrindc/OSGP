@@ -17,7 +17,7 @@ pub struct LogonData {
 #[get("/v1/logon")]
 pub fn get_logon_handler(security: Security) -> String {
     let response = match security {
-        Security::AppToken(session) => match User::load_by_id(session.user) {
+        Security::AppToken(session) => match User::load_by_id(session.user_id) {
             Some(user) => Response {
                 ok: true,
                 body: ResponseBody::User(user),
@@ -66,7 +66,7 @@ pub fn start_logon_handler(remote: SocketAddr, data: Json<LogonData>) -> String 
 pub fn get_history_handler(security: Security) -> String {
     let response = match security {
         Security::AppToken(session) => {
-            let history = LogonHistory::load_by_user(session.user);
+            let history = LogonHistory::load_by_user(session.user_id);
 
             Response {
                 ok: true,
