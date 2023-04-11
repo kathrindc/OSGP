@@ -7,6 +7,7 @@ use uuid::Uuid;
 use super::LogonHistory;
 
 #[derive(Debug, Identifiable, Insertable, Queryable, Serialize, AsChangeset)]
+#[diesel(belongs_to(User))]
 pub struct LogonSession {
     pub id: Uuid,
     pub user_id: i32,
