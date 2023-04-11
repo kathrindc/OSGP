@@ -40,6 +40,7 @@ impl LogonHistory {
         let connection = &mut establish_connection();
 
         logon_history::table
+            .order(logon_history::dsl::started_at.desc())
             .filter(logon_history::dsl::user_id.eq(user))
             .get_results::<LogonHistory>(connection)
             .expect("Database error while loading logon history")
