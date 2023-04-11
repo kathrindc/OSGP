@@ -14,26 +14,26 @@ import LogonHistory from '../types/logon-history';
 export class AuthService {
 
   private static AuthKeyName = window.btoa('osgp-akey');
-  private static _user = new Subject<User | null>();
+  private static _userSubject = new Subject<User | null>();
+  private static _user: User | null = null;
 
   constructor(
     public jwtHelper: JwtHelperService,
     public httpClient: HttpClient,
     public router: Router,
   ) {
-    if (this.isAuthenticated()) {
-      this.loadInfo(AuthService.CurrentToken!);
-    } else {
-      AuthService._user.next(null);
-    }
   }
 
   static get CurrentToken() {
     return localStorage.getItem(AuthService.AuthKeyName);
   }
 
-  static get User() {
+  static get CurrentUser() {
     return AuthService._user;
+  }
+
+  static get UserSubject() {
+    return AuthService._userSubject;
   }
 
   public async login(
@@ -60,9 +60,10 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem(AuthService.AuthKeyName);
-    AuthService._user.next(null);
+    AuthService._userSubject.next(null);
+    AuthService._user = null;
 
-    this.router.navigate(['/logon']);
+    this.router.navigate(['/login']);
   }
 
   public async loadHistory(): Promise<LogonHistory[]> {
@@ -84,19 +85,38 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(AuthService.CurrentToken);
   }
 
-  private async loadInfo(token: string) {
-    const observable = this.httpClient.get(
-      `${ApiHost}/api/v1/logon`,
-      { headers: { 'Authorization': `Bearer ${token}` } }
-    );
-    const { ok, body } = (
-      await lastValueFrom(observable)
-    ) as ApiResponse<User>;
+  public async initUserData(): Promise<void> {
+    let token = AuthService.CurrentToken;
 
-    if (!ok) {
-      throw new Error(body as string);
+    if (token && this.isAuthenticated()) {
+      await this.loadInfo(token);
+    } else {
+      AuthService._userSubject.next(null);
     }
+  }
 
-    AuthService._user.next(body as User);
+  private async loadInfo(token: string) {
+    try {
+      const observable = this.httpClient.get(
+        `${ApiHost}/api/v1/logon`,
+        { headers: { 'Authorization': `Bearer ${token}` } }
+      );
+      const { ok, body } = (
+        await lastValueFrom(observable)
+      ) as ApiResponse<User>;
+
+      if (!ok) {
+        throw new Error(body as string);
+      }
+
+      AuthService._userSubject.next(body as User);
+      AuthService._user = body as User;
+    } catch (error: any) {
+      if (error.status != 401) {
+        throw error;
+      }
+
+      this.logout();
+    }
   }
 }

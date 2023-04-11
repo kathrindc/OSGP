@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { LogoutPageComponent } from './pages/logout/logout.component';
 import { ApiDomain } from './api-host';
 import { LogonHistoryListComponent } from './components/logon-history-list/logon-history-list.component';
+import { AppInit } from './app.init';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { LogonHistoryListComponent } from './components/logon-history-list/logon
 
     ClarityModule,
   ],
-  providers: [],
+  providers: [AppInit],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
