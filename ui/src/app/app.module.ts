@@ -16,6 +16,7 @@ import { LoginPageComponent } from './pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { LogoutPageComponent } from './pages/logout/logout.component';
 import { ApiDomain } from './api-host';
+import { LogonHistoryListComponent } from './components/logon-history-list/logon-history-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ApiDomain } from './api-host';
     DashboardPageComponent,
     NotFoundPageComponent,
     LoginPageComponent,
-    LogoutPageComponent
+    LogoutPageComponent,
+    LogonHistoryListComponent
   ],
   imports: [
     BrowserModule,

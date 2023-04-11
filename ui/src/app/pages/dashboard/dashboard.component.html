@@ -1,1 +1,25 @@
-<p>dashboard works!</p>
+<div class="clr-row">
+  <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4">
+    <div class="card">
+      Placeholder
+    </div>
+  </div>
+  <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4">
+    <div class="card">
+      Placeholder
+    </div>
+  </div>
+  <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        Recent Logons
+      </div>
+      <div class="card-block">
+        <osgp-com-logon-history-list [truncate]="true"></osgp-com-logon-history-list>
+      </div>
+      <div class="card-footer">
+        <a routerLink="/account/logons" class="btn btn-sm btn-link">View all</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .history-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+
+    p {
+      flex-grow: 1;
+      margin-top: 0;
+      margin-left: 0.5rem;
+      line-height: 1rem;
+    }
+  }
+
+  .history-item:last-of-type {
+    padding-bottom: 0.5rem;
+  }
+}

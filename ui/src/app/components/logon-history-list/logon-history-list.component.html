@@ -1,0 +1,8 @@
+<div *ngFor="let item of history" class="history-item">
+  <cds-icon shape="computer" size="md"></cds-icon>
+  <p>
+    <b>{{ item.started_at | date : 'medium' }}</b>
+    <br/>
+    <span>from {{ item.address }}</span>
+  </p>
+</div>

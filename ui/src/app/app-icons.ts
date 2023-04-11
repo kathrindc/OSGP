@@ -8,6 +8,7 @@ import {
   listIcon,
   lockIcon,
   walletIcon,
+  computerIcon,
 } from '@cds/core/icon';
 
 ClarityIcons.addIcons(
@@ -18,4 +19,5 @@ ClarityIcons.addIcons(
   listIcon,
   lockIcon,
   walletIcon,
+  computerIcon,
 );
