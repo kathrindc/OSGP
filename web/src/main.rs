@@ -57,6 +57,7 @@ fn rocket() -> _ {
                 user_handler::delete_user_handler,
                 logon_handler::get_logon_handler,
                 logon_handler::start_logon_handler,
+                logon_handler::get_history_handler,
             ],
         )
         .attach(cors)

@@ -1,4 +1,4 @@
-use crate::models::User;
+use crate::models::{LogonHistory, User};
 use rocket::serde::Serialize;
 
 #[derive(Serialize)]
@@ -8,6 +8,7 @@ pub enum ResponseBody {
     User(User),
     Users(Vec<User>),
     Token(String),
+    LogonHistory(Vec<LogonHistory>),
     None,
 }
 
