@@ -44,7 +44,7 @@ pub fn get_logon_handler(security: Security) -> String {
 pub fn start_logon_handler(remote: SocketAddr, data: Json<LogonData>) -> String {
     let response = match User::load_by_logon(data.0.email, data.0.password) {
         Some(user) => {
-            let session = LogonSession::begin(user.id, remote.to_string());
+            let session = LogonSession::begin(user.id, remote.ip().to_string());
             let token = Security::make_token(user, session);
 
             Response {
