@@ -6,6 +6,7 @@ import { firstValueFrom, lastValueFrom, map, Subject } from 'rxjs';
 import { ApiHost } from '../api-host';
 import ApiResponse from '../types/response';
 import User from '../types/user';
+import LogonHistory from '../types/logon-history';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,21 @@ export class AuthService {
     AuthService._user.next(null);
 
     this.router.navigate(['/logon']);
+  }
+
+  public async loadHistory(): Promise<LogonHistory[]> {
+    const observable = this.httpClient.get(
+      `${ApiHost}/api/v1/logon/history`
+    );
+    const { ok, body } = (
+      await lastValueFrom(observable)
+    ) as ApiResponse<LogonHistory[]>;
+
+    if (!ok) {
+      throw new Error(body as string);
+    }
+
+    return body as LogonHistory[];
   }
 
   public isAuthenticated(): boolean {
