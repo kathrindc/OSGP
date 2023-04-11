@@ -12,7 +12,7 @@ diesel::table! {
 diesel::table! {
     logon_sessions (id) {
         id -> Uuid,
-        user -> Int4,
+        user_id -> Int4,
         expires_at -> Timestamptz,
         address -> Varchar,
         started_at -> Timestamptz,
@@ -31,7 +31,7 @@ diesel::table! {
 }
 
 diesel::joinable!(logon_history -> users (user_id));
-diesel::joinable!(logon_sessions -> users (user));
+diesel::joinable!(logon_sessions -> users (user_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
     logon_history,
