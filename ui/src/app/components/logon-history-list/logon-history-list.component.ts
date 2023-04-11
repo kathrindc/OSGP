@@ -4,8 +4,8 @@ import LogonHistory from 'src/app/types/logon-history';
 
 @Component({
   selector: 'osgp-com-logon-history-list',
-  templateUrl: './logon-history.component.html',
-  styleUrls: ['./logon-history.component.less'],
+  templateUrl: './logon-history-list.component.html',
+  styleUrls: ['./logon-history-list.component.less'],
 })
 export class LogonHistoryListComponent implements OnInit {
 
