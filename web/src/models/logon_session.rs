@@ -4,19 +4,25 @@ use diesel::prelude::*;
 use serde::Serialize;
 use uuid::Uuid;
 
+use super::LogonHistory;
+
 #[derive(Debug, Identifiable, Insertable, Queryable, Serialize, AsChangeset)]
 pub struct LogonSession {
     pub id: Uuid,
     pub user: i32,
     pub expires_at: DateTime<Utc>,
+    pub address: String,
+    pub started_at: DateTime<Utc>,
 }
 
 impl LogonSession {
-    fn new(user: i32) -> Self {
+    fn new(user: i32, address: String) -> Self {
         Self {
             id: Uuid::new_v4(),
-            user,
+            started_at: Utc::now(),
             expires_at: Utc::now() + Duration::minutes(20),
+            user,
+            address,
         }
     }
 
@@ -30,12 +36,14 @@ impl LogonSession {
             .expect("Database error while finding session")
     }
 
-    pub fn begin(user: i32) -> LogonSession {
+    pub fn begin(user: i32, address: String) -> LogonSession {
         let connection = &mut establish_connection();
-        let session = LogonSession::new(user);
+        let session = LogonSession::new(user, address);
+
+        LogonHistory::store(&session);
 
         diesel::insert_into(logon_sessions::table)
-            .values(session)
+            .values(&session)
             .get_result::<LogonSession>(connection)
             .expect("Database error while beginning session")
     }
